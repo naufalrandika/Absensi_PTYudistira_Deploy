@@ -21,6 +21,8 @@ from controllers.dashboard_controller import dashboard_bp
 from controllers.notification_controller import notification_bp
 from controllers.audit_controller import audit_bp
 from controllers.office_controller import office_bp
+from controllers.time_worksheet_controller import time_worksheet_bp
+from controllers.work_calendar_controller import work_calendar_bp
 
 def create_app():
     """Factory function untuk membuat Flask app"""
@@ -40,6 +42,8 @@ def create_app():
     app.register_blueprint(notification_bp, url_prefix='/notification')
     app.register_blueprint(audit_bp, url_prefix='/audit')
     app.register_blueprint(office_bp, url_prefix='/office')
+    app.register_blueprint(time_worksheet_bp, url_prefix='/time-worksheet')
+    app.register_blueprint(work_calendar_bp, url_prefix='/work-calendar')
     
     # Create tables
     with app.app_context():

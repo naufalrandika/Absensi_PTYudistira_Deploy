@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}Kalender Kerja - Sistem Presensi Karyawan{% endblock %}
+
+{% block content %}
+<div class="space-y-6 animate-in fade-in slide-in-from-bottom-4">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div class="space-y-1">
+            <h1 class="text-3xl sm:text-4xl font-bold tracking-tight gradient-text">Kalender Kerja Digital</h1>
+            <p class="text-muted-foreground">Informasi hari kerja, perencanaan jadwal, dan deadline</p>
+        </div>
+    </div>
+
+    <div class="rounded-2xl border border-slate-200 bg-white/90 shadow-xl p-6">
+        <h2 class="text-lg font-bold text-slate-800 mb-4">Tambah Agenda</h2>
+        <form method="POST" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <input type="date" name="event_date" required value="{{ today }}"
+                   class="h-10 rounded-lg border border-slate-300 px-3 text-sm">
+            <input type="text" name="title" required maxlength="150"
+                   placeholder="Judul agenda/deadline"
+                   class="h-10 rounded-lg border border-slate-300 px-3 text-sm md:col-span-2">
+            <select name="event_type" class="h-10 rounded-lg border border-slate-300 px-3 text-sm">
+                {% for event_type, label in event_type_labels.items() %}
+                <option value="{{ event_type }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+            <textarea name="description" rows="3" placeholder="Keterangan tambahan (opsional)"
+                      class="rounded-lg border border-slate-300 px-3 py-2 text-sm md:col-span-3"></textarea>
+            <button type="submit" class="h-10 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold hover:shadow-lg">
+                Simpan Agenda
+            </button>
+        </form>
+    </div>
+
+    <div class="grid grid-cols-1 xl:grid-cols-4 gap-6">
+        <div class="xl:col-span-3 rounded-2xl border border-slate-200 bg-white/90 shadow-xl overflow-hidden">
+            <div class="flex items-center justify-between px-5 py-4 border-b border-slate-200 bg-slate-50">
+                <a href="{{ url_for('work_calendar.index', month=previous_month) }}" class="inline-flex items-center justify-center w-9 h-9 rounded-lg border border-slate-300 text-slate-700 hover:bg-white">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+                <h2 class="text-lg font-bold text-slate-800">{{ current_date.strftime('%B %Y') }}</h2>
+                <a href="{{ url_for('work_calendar.index', month=next_month) }}" class="inline-flex items-center justify-center w-9 h-9 rounded-lg border border-slate-300 text-slate-700 hover:bg-white">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-7 border-b border-slate-200 bg-slate-50 text-xs font-bold text-slate-600">
+                <div class="p-3 text-center">Sen</div>
+                <div class="p-3 text-center">Sel</div>
+                <div class="p-3 text-center">Rab</div>
+                <div class="p-3 text-center">Kam</div>
+                <div class="p-3 text-center">Jum</div>
+                <div class="p-3 text-center">Sab</div>
+                <div class="p-3 text-center">Min</div>
+            </div>
+
+            {% for week in month_weeks %}
+            <div class="grid grid-cols-7 border-b border-slate-100 last:border-b-0">
+                {% for day in week %}
+                <div class="min-h-32 border-r border-slate-100 last:border-r-0 p-2 {% if not day.is_current_month %}bg-slate-50/60{% endif %}">
+                    <div class="text-xs font-semibold mb-2 {% if day.is_today %}text-blue-600{% elif day.is_weekend %}text-red-500{% else %}text-slate-700{% endif %}">
+                        {{ day.date.day }}
+                    </div>
+                    <div class="space-y-1">
+                        {% for event in day.events[:3] %}
+                        <div class="text-[11px] rounded-md px-2 py-1 truncate
+                            {% if event.event_type == 'deadline' %}bg-red-100 text-red-700
+                            {% elif event.event_type == 'jadwal' %}bg-blue-100 text-blue-700
+                            {% elif event.event_type == 'hari_kerja' %}bg-emerald-100 text-emerald-700
+                            {% else %}bg-amber-100 text-amber-700{% endif %}">
+                            {{ event.title }}
+                        </div>
+                        {% endfor %}
+                        {% if day.events|length > 3 %}
+                        <div class="text-[11px] text-slate-500">+{{ day.events|length - 3 }} agenda</div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="rounded-2xl border border-slate-200 bg-white/90 shadow-xl p-5">
+            <h3 class="text-base font-bold text-slate-800 mb-4">Deadline & Agenda 30 Hari</h3>
+            <div class="space-y-3">
+                {% for item in upcoming_events %}
+                <div class="rounded-xl border border-slate-200 p-3">
+                    <div class="text-xs text-slate-500">{{ item.event_date.strftime('%d/%m/%Y') }}</div>
+                    <div class="text-sm font-semibold text-slate-800 mt-1">{{ item.title }}</div>
+                    <div class="text-xs mt-1
+                        {% if item.event_type == 'deadline' %}text-red-600
+                        {% elif item.event_type == 'jadwal' %}text-blue-600
+                        {% elif item.event_type == 'hari_kerja' %}text-emerald-600
+                        {% else %}text-amber-600{% endif %}">
+                        {{ event_type_labels[item.event_type] }}
+                    </div>
+                    {% if item.description %}
+                    <div class="text-xs text-slate-600 mt-1">{{ item.description }}</div>
+                    {% endif %}
+                </div>
+                {% else %}
+                <p class="text-sm text-slate-500">Belum ada agenda 30 hari ke depan.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

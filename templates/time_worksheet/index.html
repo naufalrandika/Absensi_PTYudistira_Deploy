@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Time Worksheet - Sistem Presensi Karyawan{% endblock %}
+
+{% block content %}
+<div class="space-y-6 animate-in fade-in slide-in-from-bottom-4">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div class="space-y-1">
+            <h1 class="text-3xl sm:text-4xl font-bold tracking-tight gradient-text">Time Worksheet</h1>
+            <p class="text-muted-foreground">Catatan aktivitas harian dan durasi pekerjaan</p>
+        </div>
+        {% if role == 'karyawan' %}
+        <a href="{{ url_for('time_worksheet.create') }}" class="inline-flex items-center justify-center rounded-xl h-10 px-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all">
+            <i class="fas fa-plus mr-2"></i>Tambah Aktivitas
+        </a>
+        {% endif %}
+    </div>
+
+    <div class="grid gap-4 sm:grid-cols-2">
+        <div class="rounded-xl border bg-white/80 shadow-lg p-5">
+            <p class="text-sm text-slate-600">Total Durasi (hasil filter)</p>
+            <p class="text-3xl font-bold text-blue-600 mt-2">{{ (total_minutes / 60)|round(2) }} jam</p>
+        </div>
+        <div class="rounded-xl border bg-white/80 shadow-lg p-5">
+            <p class="text-sm text-slate-600">Jumlah Aktivitas</p>
+            <p class="text-3xl font-bold text-purple-600 mt-2">{{ worksheets|length }}</p>
+        </div>
+    </div>
+
+    <div class="rounded-2xl border border-slate-200 bg-white/90 backdrop-blur-sm shadow-lg p-4 sm:p-6">
+        <form method="GET" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="space-y-2">
+                <label class="text-sm font-semibold text-slate-700">Dari Tanggal</label>
+                <input type="date" name="start_date" value="{{ start_date }}"
+                       class="w-full h-10 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm">
+            </div>
+            <div class="space-y-2">
+                <label class="text-sm font-semibold text-slate-700">Sampai Tanggal</label>
+                <input type="date" name="end_date" value="{{ end_date }}"
+                       class="w-full h-10 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm">
+            </div>
+            <div class="flex items-end gap-2">
+                <button type="submit" class="flex-1 inline-flex items-center justify-center rounded-xl h-10 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold shadow-lg hover:shadow-xl transition-all">
+                    <i class="fas fa-search mr-2"></i>Filter
+                </button>
+                <a href="{{ url_for('time_worksheet.index') }}" class="inline-flex items-center justify-center rounded-xl h-10 w-10 border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 transition-all">
+                    <i class="fas fa-redo"></i>
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <div class="rounded-2xl border border-slate-200 bg-white/80 backdrop-blur-sm shadow-xl overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full min-w-[950px] text-sm">
+                <thead>
+                    <tr class="border-b border-slate-200 bg-gradient-to-r from-slate-50 to-slate-100/50">
+                        <th class="h-14 px-6 text-left font-bold text-slate-700">Tanggal</th>
+                        <th class="h-14 px-6 text-left font-bold text-slate-700">Karyawan</th>
+                        <th class="h-14 px-6 text-left font-bold text-slate-700">Aktivitas</th>
+                        <th class="h-14 px-6 text-left font-bold text-slate-700">Jam Kerja</th>
+                        <th class="h-14 px-6 text-left font-bold text-slate-700">Durasi</th>
+                        <th class="h-14 px-6 text-left font-bold text-slate-700">Keterangan</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    {% for item in worksheets %}
+                    <tr class="hover:bg-blue-50/40 transition-all">
+                        <td class="p-5">{{ item.activity_date.strftime('%d/%m/%Y') }}</td>
+                        <td class="p-5">{{ item.employee.full_name if item.employee else '-' }}</td>
+                        <td class="p-5 font-semibold text-slate-800">{{ item.activity_title }}</td>
+                        <td class="p-5">{{ item.start_time.strftime('%H:%M') }} - {{ item.end_time.strftime('%H:%M') }}</td>
+                        <td class="p-5 font-bold text-blue-600">{{ (item.duration_minutes / 60)|round(2) }} jam</td>
+                        <td class="p-5 text-slate-600 max-w-md">{{ item.activity_description or '-' }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="h-32 text-center text-slate-500">
+                            <i class="fas fa-inbox text-3xl text-slate-300 mb-2"></i><br>
+                            Belum ada data time worksheet.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
