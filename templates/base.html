@@ -364,7 +364,7 @@
                   {% if session.role == 'admin' %}
                   <span
                     class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-bold bg-gradient-to-r from-red-500 to-red-600 text-white shadow-sm"
-                    >Admin</span
+                    >Administrator</span
                   >
                   {% elif session.role == 'hrd' %}
                   <span
@@ -412,13 +412,13 @@
                 href="{{ url_for('dashboard.index') }}"
                 class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate-700 transition-all hover:bg-blue-50 hover:text-blue-600 border-b border-slate-100"
               >
-                <i class="fas fa-home w-5 text-blue-500"></i>Dashboard
+                <i class="fas fa-home w-5 text-blue-500"></i>Beranda
               </a>
               <a
                 href="{{ url_for('auth.logout') }}"
                 class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-red-600 transition-all hover:bg-red-50"
               >
-                <i class="fas fa-sign-out-alt w-5"></i>Logout
+                <i class="fas fa-sign-out-alt w-5"></i>Keluar
               </a>
             </div>
           </div>
@@ -469,7 +469,7 @@
               >
                 <i class="fas fa-home text-blue-600 text-lg"></i>
               </div>
-              <span>Dashboard</span>
+              <span>Beranda</span>
             </a>
             <a
               href="{{ url_for('attendance.index') }}"
@@ -517,7 +517,7 @@
               >
                 <i class="fas fa-calendar-times text-blue-600 text-lg"></i>
               </div>
-              <span>Timeoff</span>
+              <span>Cuti &amp; Izin</span>
             </a>
             <a
               href="{{ url_for('overtime.index') }}"
@@ -539,7 +539,7 @@
               >
                 <i class="fas fa-list-check text-blue-600 text-lg"></i>
               </div>
-              <span>Time Worksheet</span>
+              <span>Lembar Waktu Kerja</span>
             </a>
             <a
               href="{{ url_for('work_calendar.index') }}"
@@ -562,7 +562,7 @@
               >
                 <i class="fas fa-history text-blue-600 text-lg"></i>
               </div>
-              <span>Audit Log</span>
+              <span>Catatan Audit</span>
             </a>
             {% endif %}
           </nav>

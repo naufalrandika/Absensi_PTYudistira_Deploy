@@ -41,7 +41,7 @@
             </div>
             <div class="flex items-end gap-2">
                 <button type="submit" class="flex-1 inline-flex items-center justify-center rounded-xl h-10 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all">
-                    <i class="fas fa-search mr-2"></i>Filter
+                    <i class="fas fa-search mr-2"></i>Terapkan Filter
                 </button>
                 <a href="{{ url_for('overtime.index') }}" class="inline-flex items-center justify-center rounded-xl h-10 w-10 border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 transition-all">
                     <i class="fas fa-redo"></i>
@@ -96,11 +96,11 @@
                             <div class="flex items-center gap-2">
                                 <form method="POST" action="{{ url_for('overtime.approve', overtime_id=overtime.id) }}" class="inline">
                                     <button type="submit" class="inline-flex items-center justify-center rounded-xl w-10 h-10 bg-gradient-to-r from-green-500 to-green-600 text-white shadow-md hover:shadow-lg hover:scale-110 active:scale-95 transition-all" 
-                                            onclick="return confirm('Setujui pengajuan ini?')" title="Approve">
+                                            onclick="return confirm('Setujui pengajuan ini?')" title="Setujui">
                                         <i class="fas fa-check"></i>
                                     </button>
                                 </form>
-                                <button onclick="showRejectModal({{ overtime.id }})" class="inline-flex items-center justify-center rounded-xl w-10 h-10 bg-gradient-to-r from-red-500 to-red-600 text-white shadow-md hover:shadow-lg hover:scale-110 active:scale-95 transition-all" title="Reject">
+                                <button onclick="showRejectModal({{ overtime.id }})" class="inline-flex items-center justify-center rounded-xl w-10 h-10 bg-gradient-to-r from-red-500 to-red-600 text-white shadow-md hover:shadow-lg hover:scale-110 active:scale-95 transition-all" title="Tolak">
                                     <i class="fas fa-times"></i>
                                 </button>
                             </div>

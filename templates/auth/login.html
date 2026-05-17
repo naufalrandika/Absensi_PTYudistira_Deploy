@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block title %}Login - Sistem Presensi Karyawan{%
+{% extends "base.html" %} {% block title %}Masuk - Sistem Presensi Karyawan{%
 endblock %} {% block extra_css %}
 <style>
   @keyframes float {
@@ -229,7 +229,7 @@ endblock %} {% block extra_css %}
               Sistem Presensi Karyawan
             </h1>
             <p class="text-sm text-slate-600 font-medium">
-              Silakan login untuk melanjutkan
+              Silakan masuk untuk melanjutkan
             </p>
           </div>
         </div>
@@ -246,7 +246,7 @@ endblock %} {% block extra_css %}
               for="username"
               class="text-sm font-semibold text-slate-700 block"
             >
-              Username
+              Nama Pengguna
             </label>
             <div class="input-wrapper relative">
               <input
@@ -256,7 +256,7 @@ endblock %} {% block extra_css %}
                 required
                 autocomplete="username"
                 class="flex h-12 w-full rounded-xl border-2 border-slate-200 bg-white/80 backdrop-blur-sm pl-12 pr-4 py-3 text-sm font-medium text-slate-800 placeholder:text-slate-400 focus-visible:outline-none focus-visible:border-blue-500 focus-visible:bg-white transition-all duration-300"
-                placeholder="Masukkan username Anda"
+                placeholder="Masukkan nama pengguna Anda"
               />
               <i
                 class="input-icon fas fa-user absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-base"
@@ -270,7 +270,7 @@ endblock %} {% block extra_css %}
               for="password"
               class="text-sm font-semibold text-slate-700 block"
             >
-              Password
+              Kata Sandi
             </label>
             <div class="input-wrapper relative">
               <input
@@ -280,7 +280,7 @@ endblock %} {% block extra_css %}
                 required
                 autocomplete="current-password"
                 class="flex h-12 w-full rounded-xl border-2 border-slate-200 bg-white/80 backdrop-blur-sm pl-12 pr-4 py-3 text-sm font-medium text-slate-800 placeholder:text-slate-400 focus-visible:outline-none focus-visible:border-blue-500 focus-visible:bg-white transition-all duration-300"
-                placeholder="Masukkan password Anda"
+                placeholder="Masukkan kata sandi Anda"
               />
               <i
                 class="input-icon fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-base"
@@ -306,7 +306,7 @@ endblock %} {% block extra_css %}
               class="forgot-link inline-flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-700 hover:underline"
             >
               <i class="fas fa-key text-xs"></i>
-              <span>Lupa password?</span>
+              <span>Lupa kata sandi?</span>
             </a>
           </div>
         </form>

@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block title %}Timeoff - Sistem Presensi Karyawan{%
+{% extends "base.html" %} {% block title %}Cuti &amp; Izin - Sistem Presensi Karyawan{%
 endblock %} {% block content %}
 <div class="space-y-6 animate-in fade-in slide-in-from-bottom-4">
   <!-- Header with gradient -->
@@ -7,7 +7,7 @@ endblock %} {% block content %}
   >
     <div class="space-y-1">
       <h1 class="text-3xl sm:text-4xl font-bold tracking-tight gradient-text">
-        Pengajuan Timeoff
+        Pengajuan Cuti &amp; Izin
       </h1>
       <p class="text-muted-foreground">
         Kelola pengajuan izin, cuti, dan sakit
@@ -19,7 +19,7 @@ endblock %} {% block content %}
       class="inline-flex items-center justify-center rounded-lg text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-r from-primary to-primary/90 text-primary-foreground hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl hover:scale-105 h-10 px-4 py-2"
     >
       <i class="fas fa-plus mr-2"></i
-      ><span class="hidden sm:inline">Ajukan Timeoff</span
+      ><span class="hidden sm:inline">Ajukan Cuti/Izin</span
       ><span class="sm:hidden">Ajukan</span>
     </a>
     {% endif %}
@@ -63,7 +63,7 @@ endblock %} {% block content %}
             <th
               class="h-14 px-6 text-left align-middle font-bold text-slate-700"
             >
-              Tahap Approval
+              Tahap Persetujuan
             </th>
             <th
               class="h-14 px-6 text-left align-middle font-bold text-slate-700"
@@ -136,7 +136,7 @@ endblock %} {% block content %}
               <span
                 class="inline-flex items-center rounded-lg px-3 py-1.5 text-xs font-semibold transition-all shadow-sm bg-slate-100 text-slate-600"
               >
-                Menunggu Approval
+                Menunggu Persetujuan
               </span>
               {% endif %}
             </td>
@@ -154,7 +154,7 @@ endblock %} {% block content %}
                     type="submit"
                     class="inline-flex items-center justify-center rounded-xl w-10 h-10 bg-gradient-to-r from-green-500 to-green-600 text-white shadow-md hover:shadow-lg hover:scale-110 active:scale-95 transition-all"
                     onclick="return confirm('Setujui pengajuan ini?')"
-                    title="Approve"
+                    title="Setujui"
                   >
                     <i class="fas fa-check"></i>
                   </button>
@@ -162,7 +162,7 @@ endblock %} {% block content %}
                 <button
                   onclick="showRejectModal({{ leave.id }})"
                   class="inline-flex items-center justify-center rounded-xl w-10 h-10 bg-gradient-to-r from-red-500 to-red-600 text-white shadow-md hover:shadow-lg hover:scale-110 active:scale-95 transition-all"
-                  title="Reject"
+                  title="Tolak"
                 >
                   <i class="fas fa-times"></i>
                 </button>
@@ -179,7 +179,7 @@ endblock %} {% block content %}
                     type="submit"
                     class="inline-flex items-center justify-center rounded-xl w-10 h-10 bg-gradient-to-r from-green-500 to-green-600 text-white shadow-md hover:shadow-lg hover:scale-110 active:scale-95 transition-all"
                     onclick="return confirm('Setujui pengajuan ini?')"
-                    title="Approve"
+                    title="Setujui"
                   >
                     <i class="fas fa-check"></i>
                   </button>
@@ -187,7 +187,7 @@ endblock %} {% block content %}
                 <button
                   onclick="showRejectModal({{ leave.id }})"
                   class="inline-flex items-center justify-center rounded-xl w-10 h-10 bg-gradient-to-r from-red-500 to-red-600 text-white shadow-md hover:shadow-lg hover:scale-110 active:scale-95 transition-all"
-                  title="Reject"
+                  title="Tolak"
                 >
                   <i class="fas fa-times"></i>
                 </button>
@@ -204,7 +204,7 @@ endblock %} {% block content %}
                     type="submit"
                     class="inline-flex items-center justify-center rounded-xl w-10 h-10 bg-gradient-to-r from-green-500 to-green-600 text-white shadow-md hover:shadow-lg hover:scale-110 active:scale-95 transition-all"
                     onclick="return confirm('Setujui pengajuan ini?')"
-                    title="Approve"
+                    title="Setujui"
                   >
                     <i class="fas fa-check"></i>
                   </button>
@@ -212,7 +212,7 @@ endblock %} {% block content %}
                 <button
                   onclick="showRejectModal({{ leave.id }})"
                   class="inline-flex items-center justify-center rounded-xl w-10 h-10 bg-gradient-to-r from-red-500 to-red-600 text-white shadow-md hover:shadow-lg hover:scale-110 active:scale-95 transition-all"
-                  title="Reject"
+                  title="Tolak"
                 >
                   <i class="fas fa-times"></i>
                 </button>

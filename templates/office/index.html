@@ -8,7 +8,7 @@
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div class="space-y-1">
             <h1 class="text-3xl sm:text-4xl font-bold tracking-tight gradient-text">Lokasi Kantor</h1>
-            <p class="text-muted-foreground">Kelola lokasi kantor untuk presensi geolocation</p>
+            <p class="text-muted-foreground">Kelola lokasi kantor untuk presensi berbasis lokasi</p>
         </div>
         <div class="flex flex-wrap gap-2">
             <a href="{{ url_for('office.create') }}" class="inline-flex items-center justify-center rounded-xl h-10 px-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all">
@@ -25,7 +25,7 @@
                 <h3 class="font-semibold text-blue-900 mb-1">Informasi Lokasi Kantor</h3>
                 <p class="text-sm text-blue-800">
                     Sistem akan memvalidasi lokasi presensi berdasarkan koordinat dan radius yang Anda tentukan. 
-                    Karyawan hanya bisa check-in/check-out jika berada dalam radius salah satu kantor aktif.
+                    Karyawan hanya bisa masuk/pulang kerja jika berada dalam radius salah satu kantor aktif.
                 </p>
             </div>
         </div>

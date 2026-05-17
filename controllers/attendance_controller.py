@@ -86,7 +86,7 @@ def check_in():
     ).first()
     
     if existing and existing.check_in_time:
-        return jsonify({'success': False, 'message': 'Anda sudah melakukan check-in hari ini'}), 400
+        return jsonify({'success': False, 'message': 'Anda sudah melakukan presensi masuk hari ini'}), 400
     
     # Get location from request
     data = request.get_json()
@@ -155,7 +155,7 @@ def check_in():
     
     return jsonify({
         'success': True,
-        'message': 'Check-in berhasil',
+        'message': 'Presensi masuk berhasil',
         'check_in_time': now.isoformat(),
         'status': status
     })
@@ -178,10 +178,10 @@ def check_out():
     ).first()
     
     if not attendance or not attendance.check_in_time:
-        return jsonify({'success': False, 'message': 'Anda belum melakukan check-in hari ini'}), 400
+        return jsonify({'success': False, 'message': 'Anda belum melakukan presensi masuk hari ini'}), 400
     
     if attendance.check_out_time:
-        return jsonify({'success': False, 'message': 'Anda sudah melakukan check-out hari ini'}), 400
+        return jsonify({'success': False, 'message': 'Anda sudah melakukan presensi pulang hari ini'}), 400
     
     # Get location from request
     data = request.get_json()
@@ -232,7 +232,7 @@ def check_out():
     
     return jsonify({
         'success': True,
-        'message': 'Check-out berhasil',
+        'message': 'Presensi pulang berhasil',
         'check_out_time': now.isoformat()
     })
 

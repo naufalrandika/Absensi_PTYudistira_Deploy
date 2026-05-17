@@ -67,7 +67,7 @@ endblock %} {% block content %}
     <h2 class="text-xl font-bold text-slate-800 mb-6">Presensi Hari Ini</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <!-- Check In -->
+      <!-- Masuk Kerja -->
       <div
         class="rounded-xl border-2 border-dashed border-slate-300 bg-gradient-to-br from-blue-50/50 to-white p-6 text-center transition-all hover:shadow-lg"
       >
@@ -76,7 +76,7 @@ endblock %} {% block content %}
         >
           <i class="fas fa-sign-in-alt text-2xl text-white"></i>
         </div>
-        <h3 class="text-lg font-bold text-slate-800 mb-2">Check In</h3>
+        <h3 class="text-lg font-bold text-slate-800 mb-2">Masuk Kerja</h3>
         {% if today_attendance and today_attendance.check_in_time %}
         <p class="text-slate-600 font-medium">
           Waktu: {{ today_attendance.check_in_time.strftime('%H:%M:%S') }}
@@ -93,19 +93,19 @@ endblock %} {% block content %}
           disabled
           class="mt-4 px-6 py-2 bg-slate-300 text-slate-600 rounded-xl cursor-not-allowed font-semibold"
         >
-          Sudah Check In
+          Sudah Masuk Kerja
         </button>
         {% else %}
         <button
           id="checkInBtn"
           class="mt-4 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all"
         >
-          Check In
+          Masuk Kerja
         </button>
         {% endif %}
       </div>
 
-      <!-- Check Out -->
+      <!-- Pulang Kerja -->
       <div
         class="rounded-xl border-2 border-dashed border-slate-300 bg-gradient-to-br from-green-50/50 to-white p-6 text-center transition-all hover:shadow-lg"
       >
@@ -114,7 +114,7 @@ endblock %} {% block content %}
         >
           <i class="fas fa-sign-out-alt text-2xl text-white"></i>
         </div>
-        <h3 class="text-lg font-bold text-slate-800 mb-2">Check Out</h3>
+        <h3 class="text-lg font-bold text-slate-800 mb-2">Pulang Kerja</h3>
         {% if today_attendance and today_attendance.check_out_time %}
         <p class="text-slate-600 font-medium">
           Waktu: {{ today_attendance.check_out_time.strftime('%H:%M:%S') }}
@@ -123,18 +123,18 @@ endblock %} {% block content %}
           disabled
           class="mt-4 px-6 py-2 bg-slate-300 text-slate-600 rounded-xl cursor-not-allowed font-semibold"
         >
-          Sudah Check Out
+          Sudah Pulang Kerja
         </button>
         {% elif today_attendance and today_attendance.check_in_time %}
         <button
           id="checkOutBtn"
           class="mt-4 px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all"
         >
-          Check Out
+          Pulang Kerja
         </button>
         {% else %}
         <p class="text-slate-500 mt-4 font-medium">
-          Silakan check in terlebih dahulu
+          Silakan masuk kerja terlebih dahulu
         </p>
         {% endif %}
       </div>
@@ -204,8 +204,8 @@ endblock %} {% block content %}
             required
             class="w-full px-4 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           >
-            <option value="wfa" selected>WFA (Work From Anywhere)</option>
-            <option value="hadir">WFO (Work From Office)</option>
+            <option value="wfa" selected>Kerja dari Mana Saja (WFA)</option>
+            <option value="hadir">Kerja dari Kantor (WFO)</option>
           </select>
           <p class="text-xs text-slate-500 mt-1">
             Pilih status untuk presensi manual ini
@@ -238,7 +238,7 @@ endblock %} {% block content %}
       >
         <i class="fas fa-map-marker-alt text-blue-600"></i>
         <span class="text-sm text-blue-700">
-          Lokasi Anda akan otomatis diambil saat submit untuk keamanan
+          Lokasi Anda akan otomatis diambil saat mengirim untuk keamanan
         </span>
       </div>
 
@@ -325,12 +325,12 @@ endblock %} {% block content %}
             <th
               class="h-12 px-4 text-left align-middle font-bold text-slate-700"
             >
-              Check In
+              Masuk
             </th>
             <th
               class="h-12 px-4 text-left align-middle font-bold text-slate-700"
             >
-              Check Out
+              Pulang
             </th>
             <th
               class="h-12 px-4 text-left align-middle font-bold text-slate-700"
@@ -647,14 +647,14 @@ endblock %} {% block content %}
       modal.classList.add("hidden");
 
       if (data.success) {
-        alert("Check-in berhasil!");
+        alert("Presensi masuk berhasil!");
         window.location.reload();
       } else {
-        alert("Error: " + data.message);
+        alert("Kesalahan: " + data.message);
       }
     } catch (error) {
       modal.classList.add("hidden");
-      alert("Error: " + error);
+      alert("Kesalahan: " + error);
     }
   }
 
@@ -708,14 +708,14 @@ endblock %} {% block content %}
       modal.classList.add("hidden");
 
       if (data.success) {
-        alert("Check-out berhasil!");
+        alert("Presensi pulang berhasil!");
         window.location.reload();
       } else {
-        alert("Error: " + data.message);
+        alert("Kesalahan: " + data.message);
       }
     } catch (error) {
       modal.classList.add("hidden");
-      alert("Error: " + error);
+      alert("Kesalahan: " + error);
     }
   }
 
@@ -837,13 +837,13 @@ endblock %} {% block content %}
           // Reload page to show updated attendance
           window.location.reload();
         } else {
-          alert("Error: " + data.message);
+          alert("Kesalahan: " + data.message);
         }
       } catch (error) {
         modal.classList.add("hidden");
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalBtnText;
-        alert("Error: " + error.message);
+        alert("Kesalahan: " + error.message);
       }
     });
   }

@@ -66,7 +66,7 @@ def index():
 def create():
     """Tambah aktivitas time worksheet"""
     if session.get("role") != "karyawan":
-        flash("Fitur input worksheet hanya untuk karyawan.", "warning")
+        flash("Fitur input lembar waktu kerja hanya untuk karyawan.", "warning")
         return redirect(url_for("time_worksheet.index"))
 
     employee_id = session.get("employee_id")

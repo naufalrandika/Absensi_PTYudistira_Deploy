@@ -7,17 +7,18 @@
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div class="space-y-1">
             <h1 class="text-3xl sm:text-4xl font-bold tracking-tight gradient-text">Kalender Kerja Digital</h1>
-            <p class="text-muted-foreground">Informasi hari kerja, perencanaan jadwal, dan deadline</p>
+            <p class="text-muted-foreground">Agenda pribadi Anda — hanya terlihat di akun ini</p>
         </div>
     </div>
 
     <div class="rounded-2xl border border-slate-200 bg-white/90 shadow-xl p-6">
-        <h2 class="text-lg font-bold text-slate-800 mb-4">Tambah Agenda</h2>
+        <h2 class="text-lg font-bold text-slate-800 mb-2">Tambah Agenda Pribadi</h2>
+        <p class="text-sm text-slate-600 mb-4">Agenda yang Anda simpan hanya muncul di kalender akun Anda.</p>
         <form method="POST" class="grid grid-cols-1 md:grid-cols-4 gap-4">
             <input type="date" name="event_date" required value="{{ today }}"
                    class="h-10 rounded-lg border border-slate-300 px-3 text-sm">
             <input type="text" name="title" required maxlength="150"
-                   placeholder="Judul agenda/deadline"
+                   placeholder="Judul agenda atau batas waktu"
                    class="h-10 rounded-lg border border-slate-300 px-3 text-sm md:col-span-2">
             <select name="event_type" class="h-10 rounded-lg border border-slate-300 px-3 text-sm">
                 {% for event_type, label in event_type_labels.items() %}
@@ -82,7 +83,7 @@
         </div>
 
         <div class="rounded-2xl border border-slate-200 bg-white/90 shadow-xl p-5">
-            <h3 class="text-base font-bold text-slate-800 mb-4">Deadline & Agenda 30 Hari</h3>
+            <h3 class="text-base font-bold text-slate-800 mb-4">Agenda Pribadi 30 Hari ke Depan</h3>
             <div class="space-y-3">
                 {% for item in upcoming_events %}
                 <div class="rounded-xl border border-slate-200 p-3">

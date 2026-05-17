@@ -35,7 +35,7 @@
             </div>
             <div class="sm:col-span-2 lg:col-span-2 flex items-end gap-2">
                 <button type="submit" class="flex-1 inline-flex items-center justify-center rounded-xl h-10 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all">
-                    <i class="fas fa-search mr-2"></i>Filter
+                    <i class="fas fa-search mr-2"></i>Terapkan Filter
                 </button>
                 <a href="{{ url_for('attendance.history') }}" class="inline-flex items-center justify-center rounded-xl h-10 px-4 border border-slate-300 bg-white text-slate-700 font-semibold hover:bg-slate-50 transition-all">
                     <i class="fas fa-redo"></i>
@@ -54,8 +54,8 @@
                         {% if role != 'karyawan' %}
                         <th class="h-14 px-6 text-left align-middle font-bold text-slate-700">Karyawan</th>
                         {% endif %}
-                        <th class="h-14 px-6 text-left align-middle font-bold text-slate-700">Check In</th>
-                        <th class="h-14 px-6 text-left align-middle font-bold text-slate-700">Check Out</th>
+                        <th class="h-14 px-6 text-left align-middle font-bold text-slate-700">Masuk</th>
+                        <th class="h-14 px-6 text-left align-middle font-bold text-slate-700">Pulang</th>
                         <th class="h-14 px-6 text-left align-middle font-bold text-slate-700">Status</th>
                         <th class="h-14 px-6 text-left align-middle font-bold text-slate-700">Keterangan</th>
                     </tr>

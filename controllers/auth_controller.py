@@ -20,7 +20,7 @@ def login():
         password = request.form.get('password')
         
         if not username or not password:
-            flash('Username dan password harus diisi', 'error')
+            flash('Nama pengguna dan kata sandi harus diisi', 'error')
             return render_template('auth/login.html')
         
         user = User.query.filter_by(username=username).first()
@@ -47,10 +47,10 @@ def login():
             # Log audit
             AuditLogger.log_login(user.id, user.username, success=True)
             
-            flash('Login berhasil', 'success')
+            flash('Berhasil masuk', 'success')
             return redirect(url_for('dashboard.index'))
         else:
-            flash('Username atau password salah', 'error')
+            flash('Nama pengguna atau kata sandi salah', 'error')
             AuditLogger.log_login(None, username, success=False)
     
     return render_template('auth/login.html')
@@ -67,7 +67,7 @@ def logout():
     
     # Clear session
     session.clear()
-    flash('Anda telah logout', 'info')
+    flash('Anda telah keluar', 'info')
     return redirect(url_for('auth.login'))
 
 @auth_bp.route('/reset-password', methods=['GET', 'POST'])
@@ -76,7 +76,7 @@ def reset_password():
     if request.method == 'POST':
         email = request.form.get('email')
         # TODO: Implement reset password logic
-        flash('Fitur reset password belum tersedia', 'info')
+        flash('Fitur atur ulang kata sandi belum tersedia', 'info')
         return redirect(url_for('auth.login'))
     
     return render_template('auth/reset_password.html')

@@ -9,7 +9,7 @@ def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'user_id' not in session:
-            flash('Silakan login terlebih dahulu', 'warning')
+            flash('Silakan masuk terlebih dahulu', 'warning')
             return redirect(url_for('auth.login'))
         return f(*args, **kwargs)
     return decorated_function
@@ -20,7 +20,7 @@ def role_required(*roles):
         @wraps(f)
         def decorated_function(*args, **kwargs):
             if 'user_id' not in session:
-                flash('Silakan login terlebih dahulu', 'warning')
+                flash('Silakan masuk terlebih dahulu', 'warning')
                 return redirect(url_for('auth.login'))
             
             user_role = session.get('role')

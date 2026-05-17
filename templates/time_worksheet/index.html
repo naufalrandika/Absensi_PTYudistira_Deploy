@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}Time Worksheet - Sistem Presensi Karyawan{% endblock %}
+{% block title %}Lembar Waktu Kerja - Sistem Presensi Karyawan{% endblock %}
 
 {% block content %}
 <div class="space-y-6 animate-in fade-in slide-in-from-bottom-4">
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div class="space-y-1">
-            <h1 class="text-3xl sm:text-4xl font-bold tracking-tight gradient-text">Time Worksheet</h1>
+            <h1 class="text-3xl sm:text-4xl font-bold tracking-tight gradient-text">Lembar Waktu Kerja</h1>
             <p class="text-muted-foreground">Catatan aktivitas harian dan durasi pekerjaan</p>
         </div>
         {% if role == 'karyawan' %}
@@ -41,7 +41,7 @@
             </div>
             <div class="flex items-end gap-2">
                 <button type="submit" class="flex-1 inline-flex items-center justify-center rounded-xl h-10 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold shadow-lg hover:shadow-xl transition-all">
-                    <i class="fas fa-search mr-2"></i>Filter
+                    <i class="fas fa-search mr-2"></i>Terapkan Filter
                 </button>
                 <a href="{{ url_for('time_worksheet.index') }}" class="inline-flex items-center justify-center rounded-xl h-10 w-10 border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 transition-all">
                     <i class="fas fa-redo"></i>
@@ -77,7 +77,7 @@
                     <tr>
                         <td colspan="6" class="h-32 text-center text-slate-500">
                             <i class="fas fa-inbox text-3xl text-slate-300 mb-2"></i><br>
-                            Belum ada data time worksheet.
+                            Belum ada data lembar waktu kerja.
                         </td>
                     </tr>
                     {% endfor %}

@@ -79,14 +79,14 @@ def create():
             # Validate username uniqueness
             if User.query.filter_by(username=username).first():
                 db.session.rollback()
-                flash(f'Username "{username}" sudah terdaftar. Silakan gunakan username lain.', 'error')
+                flash(f'Nama pengguna "{username}" sudah terdaftar. Silakan gunakan nama pengguna lain.', 'error')
                 supervisors = Employee.query.filter_by(status='aktif').all()
                 return render_template('employee/create.html', supervisors=supervisors)
             
             # Validate email uniqueness for user
             if User.query.filter_by(email=email).first():
                 db.session.rollback()
-                flash(f'Email "{email}" sudah terdaftar sebagai user. Silakan gunakan email lain.', 'error')
+                flash(f'Email "{email}" sudah terdaftar sebagai pengguna. Silakan gunakan email lain.', 'error')
                 supervisors = Employee.query.filter_by(status='aktif').all()
                 return render_template('employee/create.html', supervisors=supervisors)
             
@@ -124,7 +124,7 @@ def create():
         )
         
         if create_user:
-            flash(f'Karyawan dan user account berhasil ditambahkan. Username: {username}, Password: {password}', 'success')
+            flash(f'Karyawan dan akun pengguna berhasil ditambahkan. Nama pengguna: {username}, Kata sandi: {password}', 'success')
         else:
             flash('Karyawan berhasil ditambahkan', 'success')
         
@@ -169,7 +169,7 @@ def edit(employee_id):
             if new_username and new_username != existing_user.username:
                 # Check if new username is available
                 if User.query.filter(User.username == new_username, User.id != existing_user.id).first():
-                    flash(f'Username "{new_username}" sudah terdaftar. Silakan gunakan username lain.', 'error')
+                    flash(f'Nama pengguna "{new_username}" sudah terdaftar. Silakan gunakan nama pengguna lain.', 'error')
                     supervisors = Employee.query.filter_by(status='aktif').all()
                     return render_template('employee/edit.html', employee=employee, supervisors=supervisors)
                 existing_user.username = new_username
@@ -178,7 +178,7 @@ def edit(employee_id):
             if new_user_email and new_user_email != existing_user.email:
                 # Check if new email is available
                 if User.query.filter(User.email == new_user_email, User.id != existing_user.id).first():
-                    flash(f'Email "{new_user_email}" sudah terdaftar sebagai user lain. Silakan gunakan email lain.', 'error')
+                    flash(f'Email "{new_user_email}" sudah terdaftar sebagai pengguna lain. Silakan gunakan email lain.', 'error')
                     supervisors = Employee.query.filter_by(status='aktif').all()
                     return render_template('employee/edit.html', employee=employee, supervisors=supervisors)
                 existing_user.email = new_user_email
@@ -217,13 +217,13 @@ def edit(employee_id):
             
             # Validate username uniqueness
             if User.query.filter_by(username=username).first():
-                flash(f'Username "{username}" sudah terdaftar. Silakan gunakan username lain.', 'error')
+                flash(f'Nama pengguna "{username}" sudah terdaftar. Silakan gunakan nama pengguna lain.', 'error')
                 supervisors = Employee.query.filter_by(status='aktif').all()
                 return render_template('employee/edit.html', employee=employee, supervisors=supervisors)
             
             # Validate email uniqueness for user
             if User.query.filter_by(email=user_email).first():
-                flash(f'Email "{user_email}" sudah terdaftar sebagai user. Silakan gunakan email lain.', 'error')
+                flash(f'Email "{user_email}" sudah terdaftar sebagai pengguna. Silakan gunakan email lain.', 'error')
                 supervisors = Employee.query.filter_by(status='aktif').all()
                 return render_template('employee/edit.html', employee=employee, supervisors=supervisors)
             
@@ -260,7 +260,7 @@ def edit(employee_id):
             f'Updated employee: {employee.full_name}'
         )
         
-        flash('Data karyawan berhasil diupdate', 'success')
+        flash('Data karyawan berhasil diperbarui', 'success')
         return redirect(url_for('employee.index'))
     
     supervisors = Employee.query.filter_by(status='aktif').all()
@@ -337,7 +337,7 @@ def import_data():
         
         flash(f'Berhasil mengimport {imported} data karyawan', 'success')
         if errors:
-            flash(f'Terjadi {len(errors)} error: {", ".join(errors[:5])}', 'warning')
+            flash(f'Terjadi {len(errors)} kesalahan: {", ".join(errors[:5])}', 'warning')
         
         return redirect(url_for('employee.index'))
     

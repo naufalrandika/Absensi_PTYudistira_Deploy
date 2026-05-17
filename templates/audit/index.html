@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %}Audit Log - Sistem Presensi Karyawan{% endblock %}
+{% block title %}Catatan Audit - Sistem Presensi Karyawan{% endblock %}
 
 {% block content %}
 <div class="space-y-6 animate-in fade-in slide-in-from-bottom-4">
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div class="space-y-1">
-            <h1 class="text-3xl sm:text-4xl font-bold tracking-tight gradient-text">Audit Log</h1>
+            <h1 class="text-3xl sm:text-4xl font-bold tracking-tight gradient-text">Catatan Audit</h1>
             <p class="text-muted-foreground">Riwayat aktivitas sistem</p>
         </div>
     </div>
@@ -29,15 +29,15 @@
                 <label class="text-sm font-semibold text-slate-700">Aktivitas</label>
                 <select name="activity" class="w-full h-10 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
                     <option value="">Semua Aktivitas</option>
-                    <option value="login" {% if request.args.get('activity') == 'login' %}selected{% endif %}>Login</option>
-                    <option value="logout" {% if request.args.get('activity') == 'logout' %}selected{% endif %}>Logout</option>
+                    <option value="login" {% if request.args.get('activity') == 'login' %}selected{% endif %}>Masuk</option>
+                    <option value="logout" {% if request.args.get('activity') == 'logout' %}selected{% endif %}>Keluar</option>
                     <option value="presensi" {% if request.args.get('activity') == 'presensi' %}selected{% endif %}>Presensi</option>
                     <option value="data_change" {% if request.args.get('activity') == 'data_change' %}selected{% endif %}>Perubahan Data</option>
                 </select>
             </div>
             <div class="flex items-end gap-2">
                 <button type="submit" class="flex-1 inline-flex items-center justify-center rounded-xl h-10 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all">
-                    <i class="fas fa-search mr-2"></i>Filter
+                    <i class="fas fa-search mr-2"></i>Terapkan Filter
                 </button>
                 <a href="{{ url_for('audit.index') }}" class="inline-flex items-center justify-center rounded-xl h-10 w-10 border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 transition-all">
                     <i class="fas fa-redo"></i>
@@ -53,11 +53,11 @@
                 <thead>
                     <tr class="border-b border-slate-200 bg-gradient-to-r from-slate-50 to-slate-100/50">
                         <th class="h-14 px-6 text-left align-middle font-bold text-slate-700">Waktu</th>
-                        <th class="h-14 px-6 text-left align-middle font-bold text-slate-700">User</th>
+                        <th class="h-14 px-6 text-left align-middle font-bold text-slate-700">Pengguna</th>
                         <th class="h-14 px-6 text-left align-middle font-bold text-slate-700">Aktivitas</th>
                         <th class="h-14 px-6 text-left align-middle font-bold text-slate-700">Aksi</th>
                         <th class="h-14 px-6 text-left align-middle font-bold text-slate-700">Tabel</th>
-                        <th class="h-14 px-6 text-left align-middle font-bold text-slate-700">IP Address</th>
+                        <th class="h-14 px-6 text-left align-middle font-bold text-slate-700">Alamat IP</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100">
@@ -91,7 +91,7 @@
                         <td colspan="6" class="h-32 text-center">
                             <div class="flex flex-col items-center gap-2">
                                 <i class="fas fa-inbox text-4xl text-slate-300"></i>
-                                <div class="text-slate-500 font-medium">Tidak ada data audit log</div>
+                                <div class="text-slate-500 font-medium">Tidak ada data catatan audit</div>
                             </div>
                         </td>
                     </tr>

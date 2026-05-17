@@ -19,6 +19,14 @@ EVENT_TYPE_LABELS = {
 }
 
 
+def _events_for_current_user():
+    """Agenda kalender milik pengguna yang sedang login."""
+    user_id = session.get("user_id")
+    return WorkCalendarEvent.query.filter(
+        WorkCalendarEvent.created_by_user_id == user_id
+    )
+
+
 @work_calendar_bp.route("/", methods=["GET", "POST"])
 @login_required
 def index():
@@ -70,8 +78,11 @@ def index():
     last_day = current_date.replace(day=month_last_day)
 
     events = (
-        WorkCalendarEvent.query
-        .filter(WorkCalendarEvent.event_date >= first_day, WorkCalendarEvent.event_date <= last_day)
+        _events_for_current_user()
+        .filter(
+            WorkCalendarEvent.event_date >= first_day,
+            WorkCalendarEvent.event_date <= last_day,
+        )
         .order_by(WorkCalendarEvent.event_date.asc(), WorkCalendarEvent.created_at.asc())
         .all()
     )
@@ -97,8 +108,11 @@ def index():
         month_weeks.append(row)
 
     upcoming_events = (
-        WorkCalendarEvent.query
-        .filter(WorkCalendarEvent.event_date >= date.today(), WorkCalendarEvent.event_date <= (date.today() + timedelta(days=30)))
+        _events_for_current_user()
+        .filter(
+            WorkCalendarEvent.event_date >= date.today(),
+            WorkCalendarEvent.event_date <= date.today() + timedelta(days=30),
+        )
         .order_by(WorkCalendarEvent.event_date.asc())
         .limit(10)
         .all()

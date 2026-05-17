@@ -100,7 +100,7 @@ def create():
             elif 'duplicate' in error_msg.lower() or 'unique' in error_msg.lower():
                 flash('Nama kantor sudah digunakan. Gunakan nama yang berbeda.', 'error')
             else:
-                flash(f'Error saat menyimpan data: {error_msg}. Silakan cek log untuk detail.', 'error')
+                flash(f'Kesalahan saat menyimpan data: {error_msg}. Silakan cek log untuk detail.', 'error')
             return render_template('office/create.html')
     
     return render_template('office/create.html')

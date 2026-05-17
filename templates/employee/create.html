@@ -112,45 +112,45 @@ Karyawan{% endblock %} {% block content %}
             onchange="toggleUserFields()"
           />
           <span class="text-gray-700 font-semibold"
-            >Buat User Account untuk Login</span
+            >Buat Akun Pengguna untuk Masuk</span
           >
         </label>
         <p class="text-sm text-gray-500 mt-1 ml-6">
-          Centang untuk membuat akun login otomatis
+          Centang untuk membuat akun masuk otomatis
         </p>
       </div>
 
       <div id="user_fields" class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
         <div>
-          <label class="block text-gray-700 font-semibold mb-2">Username</label>
+          <label class="block text-gray-700 font-semibold mb-2">Nama Pengguna</label>
           <input
             type="text"
             name="username"
             id="username"
             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-            placeholder="Auto-generate dari NIK"
+            placeholder="Dibuat otomatis dari NIK"
           />
           <p class="text-xs text-gray-500 mt-1">
-            Kosongkan untuk auto-generate dari NIK
+            Kosongkan untuk dibuat otomatis dari NIK
           </p>
         </div>
 
         <div>
-          <label class="block text-gray-700 font-semibold mb-2">Password</label>
+          <label class="block text-gray-700 font-semibold mb-2">Kata Sandi</label>
           <input
             type="password"
             name="password"
             id="password"
             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-            placeholder="Auto-generate password"
+            placeholder="Dibuat otomatis dari NIK"
           />
           <p class="text-xs text-gray-500 mt-1">
-            Kosongkan untuk auto-generate (default: NIK)
+            Kosongkan untuk dibuat otomatis (default: NIK)
           </p>
         </div>
 
         <div>
-          <label class="block text-gray-700 font-semibold mb-2">Role</label>
+          <label class="block text-gray-700 font-semibold mb-2">Peran</label>
           <select
             name="user_role"
             id="user_role"
@@ -159,10 +159,10 @@ Karyawan{% endblock %} {% block content %}
             <option value="karyawan" selected>Karyawan</option>
             <option value="atasan">Atasan</option>
             <option value="hrd">HRD</option>
-            <option value="admin">Admin</option>
+            <option value="admin">Administrator</option>
           </select>
           <p class="text-xs text-gray-500 mt-1">
-            Pilih role untuk user account
+            Pilih peran untuk akun pengguna
           </p>
         </div>
       </div>
