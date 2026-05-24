@@ -1,78 +1,90 @@
 """
-Script Python untuk setup database SQL Server secara otomatis
-Membuat database jika belum ada, kemudian menjalankan init_db.py
+Setup database: Neon PostgreSQL (default) atau SQL Server lokal (legacy).
 """
-import pyodbc
-import sys
 import os
+import sys
 
-# Konfigurasi koneksi SQL Server
-SERVER = os.environ.get('SQL_SERVER', 'localhost')
-DATABASE_NAME = os.environ.get('DATABASE_NAME', 'AbsensiDB')
-SQL_USERNAME = os.environ.get('SQL_USERNAME', 'sa')
-SQL_PASSWORD = os.environ.get('SQL_PASSWORD', '')
-USE_WINDOWS_AUTH = os.environ.get('USE_WINDOWS_AUTH', 'true').lower() in ['true', '1', 'yes']
+from dotenv import load_dotenv
 
-def create_database():
-    """Membuat database jika belum ada"""
+load_dotenv()
+
+
+def setup_neon():
+    """Buat tabel dan data awal di Neon via Flask-SQLAlchemy."""
+    import init_db  # noqa: F401 — menjalankan create_all + seed user default
+
+    print("Setup selesai via init_db (Neon PostgreSQL).")
+    return True
+
+
+def setup_sql_server():
+    """Membuat database SQL Server jika belum ada (legacy)."""
+    import pyodbc
+
+    server = os.environ.get("SQL_SERVER", "localhost")
+    database_name = os.environ.get("DATABASE_NAME", "AbsensiDB")
+    sql_username = os.environ.get("SQL_USERNAME", "sa")
+    sql_password = os.environ.get("SQL_PASSWORD", "")
+    use_windows_auth = os.environ.get("USE_WINDOWS_AUTH", "true").lower() in (
+        "true",
+        "1",
+        "yes",
+    )
+
     try:
-        # Koneksi ke master database untuk membuat database baru
-        if USE_WINDOWS_AUTH:
-            conn_str = f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={SERVER};DATABASE=master;Trusted_Connection=yes;'
+        if use_windows_auth:
+            conn_str = (
+                f"DRIVER={{ODBC Driver 17 for SQL Server}};"
+                f"SERVER={server};DATABASE=master;Trusted_Connection=yes;"
+            )
         else:
-            conn_str = f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={SERVER};DATABASE=master;UID={SQL_USERNAME};PWD={SQL_PASSWORD};'
-        
-        print(f"Mencoba koneksi ke SQL Server: {SERVER}...")
+            conn_str = (
+                f"DRIVER={{ODBC Driver 17 for SQL Server}};"
+                f"SERVER={server};DATABASE=master;"
+                f"UID={sql_username};PWD={sql_password};"
+            )
+
+        print(f"Mencoba koneksi ke SQL Server: {server}...")
         conn = pyodbc.connect(conn_str, timeout=5)
         cursor = conn.cursor()
-        
-        # Cek apakah database sudah ada
-        cursor.execute(f"SELECT name FROM sys.databases WHERE name = '{DATABASE_NAME}'")
+        cursor.execute(
+            "SELECT name FROM sys.databases WHERE name = ?", (database_name,)
+        )
         if cursor.fetchone():
-            print(f"✓ Database '{DATABASE_NAME}' sudah ada.")
+            print(f"Database '{database_name}' sudah ada.")
         else:
-            # Buat database baru
-            print(f"Membuat database '{DATABASE_NAME}'...")
-            cursor.execute(f"CREATE DATABASE [{DATABASE_NAME}]")
+            print(f"Membuat database '{database_name}'...")
+            cursor.execute(f"CREATE DATABASE [{database_name}]")
             conn.commit()
-            print(f"✓ Database '{DATABASE_NAME}' berhasil dibuat.")
-        
+            print(f"Database '{database_name}' berhasil dibuat.")
         cursor.close()
         conn.close()
         return True
-        
-    except pyodbc.Error as e:
-        print(f"❌ Error saat membuat database: {e}")
-        print("\nTroubleshooting:")
-        print("1. Pastikan SQL Server sudah berjalan")
-        print("2. Pastikan ODBC Driver 17 for SQL Server sudah terinstall")
-        print("3. Cek koneksi dengan mengubah SERVER, SQL_USERNAME, SQL_PASSWORD di script ini")
-        print("4. Atau buat database manual dengan menjalankan setup_database.sql")
-        return False
     except Exception as e:
-        print(f"❌ Error tidak terduga: {e}")
+        print(f"Error SQL Server: {e}")
         return False
+
 
 def main():
-    """Main function"""
-    print("="*60)
+    print("=" * 60)
     print("Setup Database Sistem Presensi Karyawan")
-    print("="*60)
-    print()
-    
-    # Buat database
-    if not create_database():
-        print("\n❌ Gagal membuat database. Silakan cek error di atas.")
-        sys.exit(1)
-    
-    print("\n" + "="*60)
-    print("Database berhasil dibuat!")
-    print("="*60)
-    print("\nSelanjutnya:")
-    print("1. Pastikan config.py sudah dikonfigurasi dengan benar")
-    print("2. Jalankan: python init_db.py")
-    print("3. Jalankan: python app.py")
-    print("="*60)
+    print("=" * 60)
 
-if __name__ == '__main__':
+    db_url = os.environ.get("DATABASE_URL") or os.environ.get("POSTGRES_URL")
+    if db_url and ("postgres" in db_url.lower() or "neon" in db_url.lower()):
+        print("Mode: Neon / PostgreSQL")
+        if not setup_neon():
+            sys.exit(1)
+    else:
+        print("Mode: SQL Server (legacy)")
+        if not setup_sql_server():
+            sys.exit(1)
+        print("\nJalankan: python init_db.py")
+
+    print("=" * 60)
+    print("Selesai. Jalankan: python app.py")
+    print("=" * 60)
+
+
+if __name__ == "__main__":
     main()

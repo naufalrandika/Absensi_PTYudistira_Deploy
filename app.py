@@ -45,12 +45,25 @@ def create_app():
     app.register_blueprint(time_worksheet_bp, url_prefix='/time-worksheet')
     app.register_blueprint(work_calendar_bp, url_prefix='/work-calendar')
     
-    # Create tables
-    with app.app_context():
-        db.create_all()
-    
+    # =========================
+    # DB INIT (SAFE FOR VERCEL)
+    # =========================
+    if os.getenv("VERCEL") is None:
+        # hanya jalan di local
+        with app.app_context():
+            db.create_all()
+
     return app
 
+
+# =========================
+# WAJIB UNTUK VERCEL
+# =========================
+app = create_app()
+
+
+# =========================
+# LOCAL DEVELOPMENT ONLY
+# =========================
 if __name__ == '__main__':
-    app = create_app()
     app.run(debug=True, host='127.0.0.1', port=5000)
