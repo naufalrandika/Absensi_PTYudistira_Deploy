@@ -239,7 +239,7 @@ def check_out():
 @attendance_bp.route('/manual-request', methods=['POST'])
 @login_required
 def manual_request():
-    """Ajukan cuti manual untuk lupa absen"""
+    """Ajukan cuti manual"""
     employee_id = session.get('employee_id')
     user_id = session.get('user_id')
     
